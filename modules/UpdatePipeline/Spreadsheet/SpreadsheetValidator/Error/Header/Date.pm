@@ -35,6 +35,7 @@ sub check_format
         $self->description('Valid date');
         $self->message('"'.$self->cell_contents.'" is a valid date');
         $self->user_action('No action required');
+        $pass = 1;
     }
     elsif($self->cell_format eq 'empty') 
     {
