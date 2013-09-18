@@ -17,7 +17,6 @@ sub _build__allowed_formats
 sub check_format
 {
     my ($self) = @_;
-    my $pass = 0;
     
     if($self->cell_format eq 'date')
     {
@@ -26,7 +25,6 @@ sub check_format
         $self->description('Valid date');
         $self->message('"'.$self->cell_contents.'" is a valid date');
         $self->user_action('No action required');
-        $pass = 1;
     }
     elsif($self->cell_contents =~ m/^\d{4}$/ && $self->cell_contents > 2013 ) 
     {
@@ -36,7 +34,7 @@ sub check_format
         $self->message('"'.$self->cell_contents.'" is a valid date');
         $self->user_action('No action required');
     }
-    elsif($self->cell_format eq 'empty') 
+    elsif($self->cell_format eq 'undefined' || $self->cell_format eq 'empty') 
     {
         # empty
         $self->type('warning');
@@ -53,7 +51,7 @@ sub check_format
         $self->user_action('Supply valid date (dd.mm.yyyy or yyyy)');        
     }
     
-    return $pass;    
+    return 1;    
 }
 
 __PACKAGE__->meta->make_immutable;
